@@ -122,19 +122,21 @@ const styles = StyleSheet.create({
     flex: 1,  
     justifyContent: 'flex-start',  
     alignItems: 'center',  
-    backgroundColor: '#e0f7fa', // Warna latar belakang yang lebih cerah  
+    backgroundColor: '#e0f7fa',  
     padding: 20,  
   },  
   title: {  
     fontSize: 32,  
     fontWeight: 'bold',  
-    color: '#00796b', // Warna teks judul  
+    color: '#00796b',  
     marginBottom: 20,  
     textAlign: 'center',  
   },  
   contentContainer: {  
+    flex: 1, // Menggunakan flex: 1 untuk mengisi ruang yang tersedia  
+    justifyContent: 'center', // Menempatkan konten di tengah secara vertikal  
+    alignItems: 'center', // Menempatkan konten di tengah secara horizontal  
     width: '100%',  
-    alignItems: 'center',  
   },  
   menuContainer: {  
     alignItems: 'center',  
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
   menuText: {  
     fontSize: 24,  
     marginBottom: 20,  
-    color: '#004d40', // Warna teks menu  
+    color: '#004d40',  
   },  
   quizContainer: {  
     width: '80%',  
@@ -151,12 +153,12 @@ const styles = StyleSheet.create({
   timerText: {  
     fontSize: 20,  
     marginBottom: 10,  
-    color: '#d32f2f', // Warna teks timer  
+    color: '#d32f2f',  
   },  
   questionText: {  
     fontSize: 24,  
     marginBottom: 20,  
-    color: '#1976d2', // Warna teks pertanyaan  
+    color: '#1976d2',  
   },  
   input: {  
     height: 40,  
@@ -181,16 +183,16 @@ const styles = StyleSheet.create({
     color: '#555',  
   },  
   button: {  
-    backgroundColor: '#00796b', // Warna tombol  
+    backgroundColor: '#00796b',  
     padding: 10,  
     borderRadius: 5,  
     width: '80%',  
     alignItems: 'center',  
     marginVertical: 5,  
-    elevation: 3, // Bayangan untuk efek kedalaman  
+    elevation: 3,  
   },  
   buttonText: {  
-    color: '#ffffff', // Warna teks tombol  
+    color: '#ffffff',  
     fontSize: 18,  
   },  
   buttonSpacing: {  
