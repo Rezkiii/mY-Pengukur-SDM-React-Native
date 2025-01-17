@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';  
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native';  
+import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';  
   
 const App = () => {  
   const [questions, setQuestions] = useState([]);  
@@ -8,9 +8,8 @@ const App = () => {
   const [score, setScore] = useState(0);  
   const [timer, setTimer] = useState(10);  
   const [quizCompleted, setQuizCompleted] = useState(false);  
-  const [isMenuVisible, setIsMenuVisible] = useState(true); // State untuk menampilkan menu  
+  const [isMenuVisible, setIsMenuVisible] = useState(true);  
   
-  // Generate random multiplication questions  
   useEffect(() => {  
     const generateQuestions = () => {  
       const newQuestions = [];  
@@ -24,7 +23,6 @@ const App = () => {
     generateQuestions();  
   }, []);  
   
-  // Timer countdown  
   useEffect(() => {  
     if (timer > 0 && currentQuestion < 10) {  
       const countdown = setTimeout(() => setTimer(timer - 1), 1000);  
@@ -34,7 +32,6 @@ const App = () => {
     }  
   }, [timer, currentQuestion]);  
   
-  // Handle answer submission  
   const handleAnswer = () => {  
     if (parseInt(userAnswer) === questions[currentQuestion].answer) {  
       setScore(score + 1);  
@@ -42,7 +39,6 @@ const App = () => {
     handleNextQuestion();  
   };  
   
-  // Move to the next question or finish the quiz  
   const handleNextQuestion = () => {  
     setUserAnswer('');  
     setTimer(10);  
@@ -54,22 +50,19 @@ const App = () => {
     }  
   };  
   
-  // Restart the quiz  
   const restartQuiz = () => {  
     setScore(0);  
     setCurrentQuestion(0);  
     setQuizCompleted(false);  
     setTimer(10);  
-    setQuestions(questions.map(q => ({ ...q, answer: q.num1 * q.num2 }))); // Reset questions  
+    setQuestions(questions.map(q => ({ ...q, answer: q.num1 * q.num2 })));  
   };  
   
-  // Start the quiz  
   const startQuiz = () => {  
     setIsMenuVisible(false);  
     restartQuiz();  
   };  
   
-  // Feedback message based on the score  
   const getFeedbackMessage = () => {  
     if (score < 3) return "Onde Mande";  
     if (score < 5) return "Belajar lagi dek";  
@@ -79,23 +72,29 @@ const App = () => {
   
   return (  
     <View style={styles.container}>  
-      <Text style={styles.title}>mY Pengukur SDM</Text> {/* Judul di atas */}  
-      <View style={styles.contentContainer}> {/* Konten lainnya dalam View terpisah */}  
-        {isMenuVisible ? ( // Menampilkan menu utama  
+      <Text style={styles.title}>mY Pengukur SDM</Text>  
+      <View style={styles.contentContainer}>  
+        {isMenuVisible ? (  
           <View style={styles.menuContainer}>  
             <Text style={styles.menuText}>Selamat Datang di Kuis!</Text>  
-            <Button title="Mulai Kuis" onPress={startQuiz} />  
+            <TouchableOpacity style={styles.button} onPress={startQuiz}>  
+              <Text style={styles.buttonText}>Mulai Kuis</Text>  
+            </TouchableOpacity>  
           </View>  
-        ) : quizCompleted ? ( // Menampilkan hasil kuis  
+        ) : quizCompleted ? (  
           <View style={styles.resultContainer}>  
             <Text style={styles.resultText}>Quiz Completed!</Text>  
             <Text style={styles.resultText}>Your Score: {score}/10</Text>  
             <Text style={styles.feedbackText}>{getFeedbackMessage()}</Text>  
-            <Button title="Restart Quiz" onPress={restartQuiz} />  
-            <View style={styles.buttonSpacing} /> {/* Tambahkan jarak di sini */}  
-            <Button title="Back to Menu" onPress={() => setIsMenuVisible(true)} />  
+            <TouchableOpacity style={styles.button} onPress={restartQuiz}>  
+              <Text style={styles.buttonText}>Restart Quiz</Text>  
+            </TouchableOpacity>  
+            <View style={styles.buttonSpacing} />  
+            <TouchableOpacity style={styles.button} onPress={() => setIsMenuVisible(true)}>  
+              <Text style={styles.buttonText}>Back to Menu</Text>  
+            </TouchableOpacity>  
           </View>  
-        ) : ( // Menampilkan kuis  
+        ) : (  
           <View style={styles.quizContainer}>  
             <Text style={styles.timerText}>Time Left: {timer}s</Text>  
             <Text style={styles.questionText}>  
@@ -108,7 +107,9 @@ const App = () => {
               onChangeText={setUserAnswer}  
               placeholder="Your Answer"  
             />  
-            <Button title="Submit" onPress={handleAnswer} />  
+            <TouchableOpacity style={styles.button} onPress={handleAnswer}>  
+              <Text style={styles.buttonText}>Submit</Text>  
+            </TouchableOpacity>  
           </View>  
         )}  
       </View>  
@@ -119,20 +120,21 @@ const App = () => {
 const styles = StyleSheet.create({  
   container: {  
     flex: 1,  
-    justifyContent: 'flex-start', // Mengatur konten ke atas  
-    alignItems: 'flex-start', // Mengatur konten ke kiri  
-    backgroundColor: '#f5f5f5',  
-    padding: 20, // Menambahkan padding untuk memberikan ruang  
+    justifyContent: 'flex-start',  
+    alignItems: 'center',  
+    backgroundColor: '#e0f7fa', // Warna latar belakang yang lebih cerah  
+    padding: 20,  
   },  
   title: {  
     fontSize: 32,  
     fontWeight: 'bold',  
-    color: '#333',  
-    marginBottom: 20, // Jarak antara judul dan konten lainnya  
+    color: '#00796b', // Warna teks judul  
+    marginBottom: 20,  
+    textAlign: 'center',  
   },  
   contentContainer: {  
-    width: '100%', // Memastikan konten mengambil lebar penuh  
-    alignItems: 'center', // Mengatur konten di tengah  
+    width: '100%',  
+    alignItems: 'center',  
   },  
   menuContainer: {  
     alignItems: 'center',  
@@ -140,6 +142,7 @@ const styles = StyleSheet.create({
   menuText: {  
     fontSize: 24,  
     marginBottom: 20,  
+    color: '#004d40', // Warna teks menu  
   },  
   quizContainer: {  
     width: '80%',  
@@ -148,15 +151,17 @@ const styles = StyleSheet.create({
   timerText: {  
     fontSize: 20,  
     marginBottom: 10,  
+    color: '#d32f2f', // Warna teks timer  
   },  
   questionText: {  
     fontSize: 24,  
     marginBottom: 20,  
+    color: '#1976d2', // Warna teks pertanyaan  
   },  
   input: {  
     height: 40,  
-    borderColor: '#ccc',  
-    borderWidth: 1,  
+    borderColor: '#00796b',  
+    borderWidth: 2,  
     marginBottom: 20,  
     width: '100%',  
     paddingHorizontal: 10,  
@@ -168,14 +173,28 @@ const styles = StyleSheet.create({
   resultText: {  
     fontSize: 24,  
     marginBottom: 10,  
+    color: '#004d40',  
   },  
   feedbackText: {  
     fontSize: 20,  
     marginBottom: 20,  
     color: '#555',  
   },  
+  button: {  
+    backgroundColor: '#00796b', // Warna tombol  
+    padding: 10,  
+    borderRadius: 5,  
+    width: '80%',  
+    alignItems: 'center',  
+    marginVertical: 5,  
+    elevation: 3, // Bayangan untuk efek kedalaman  
+  },  
+  buttonText: {  
+    color: '#ffffff', // Warna teks tombol  
+    fontSize: 18,  
+  },  
   buttonSpacing: {  
-    marginVertical: 10, // Menambahkan jarak vertikal antara tombol  
+    marginVertical: 10,  
   },  
 });  
   
