@@ -76,15 +76,15 @@ const App = () => {
       <View style={styles.contentContainer}>  
         {isMenuVisible ? (  
           <View style={styles.menuContainer}>  
-            <Text style={styles.menuText}>Selamat Datang di Kuis!</Text>  
+            <Text style={styles.menuText}>Click untuk memulai</Text>  
             <TouchableOpacity style={styles.button} onPress={startQuiz}>  
               <Text style={styles.buttonText}>Mulai Kuis</Text>  
             </TouchableOpacity>  
           </View>  
         ) : quizCompleted ? (  
           <View style={styles.resultContainer}>  
-            <Text style={styles.resultText}>Quiz Completed!</Text>  
-            <Text style={styles.resultText}>Your Score: {score}/10</Text>  
+            <Text style={styles.resultText}>Selamat tuan!  </Text>  
+            <Text style={styles.resultText}>Nilaimu: {score}/10</Text>  
             <Text style={styles.feedbackText}>{getFeedbackMessage()}</Text>  
             <TouchableOpacity style={styles.button} onPress={restartQuiz}>  
               <Text style={styles.buttonText}>Restart Quiz</Text>  
@@ -96,16 +96,16 @@ const App = () => {
           </View>  
         ) : (  
           <View style={styles.quizContainer}>  
-            <Text style={styles.timerText}>Time Left: {timer}s</Text>  
+            <Text style={styles.timerText}>Waktu Tersisa: {timer}s</Text>  
             <Text style={styles.questionText}>  
-              {`Question ${currentQuestion + 1}: ${questions[currentQuestion]?.num1} x ${questions[currentQuestion]?.num2}`}  
+              {`Pertanyaan ${currentQuestion + 1}: ${questions[currentQuestion]?.num1} x ${questions[currentQuestion]?.num2}`}  
             </Text>  
             <TextInput  
               style={styles.input}  
               keyboardType="numeric"  
               value={userAnswer}  
               onChangeText={setUserAnswer}  
-              placeholder="Your Answer"  
+              placeholder="Jawabanmu"  
             />  
             <TouchableOpacity style={styles.button} onPress={handleAnswer}>  
               <Text style={styles.buttonText}>Submit</Text>  
